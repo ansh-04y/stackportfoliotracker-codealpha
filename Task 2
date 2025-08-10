@@ -1,0 +1,38 @@
+import csv
+
+# Hardcoded stock prices (you can update these)
+stock_prices = {
+    "AAPL": 180,
+    "TSLA": 250,
+    "GOOGL": 140,
+    "MSFT": 330,
+    "AMZN": 130
+}
+
+portfolio = {}
+
+print("📈 Stock Portfolio Tracker")
+print("Available stocks:", ", ".join(stock_prices.keys()))
+
+while True:
+    stock = input("Enter stock symbol (or 'done' to finish): ").upper()
+    if stock == "DONE":
+        break
+    if stock not in stock_prices:
+        print("❌ Stock not available. Try again.")
+        continue
+
+    try:
+        qty = int(input(f"Enter quantity of {stock}: "))
+    except ValueError:
+        print("❌ Please enter a valid number.")
+        continue
+
+    portfolio[stock] = portfolio.get(stock, 0) + qty
+
+# Calculate total investment
+total_value = 0
+print("\nYour Portfolio:")
+print("-" * 30)
+for stock, qty in portfolio.items():
+    value = qty * stock_prices[stock]
